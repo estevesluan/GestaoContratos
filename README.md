@@ -5,9 +5,9 @@ Gestão de Contratos de Energia - CRUD
 
 1 - Executar como administrador no Visual Studio versão 2017 ou superior;
 
-2 - Verificar instalação do .Net Framework 4.7.2
+2 - Verificar instalação do .Net Framework 4.7.2 e Node.js;
 
-3 - Abrir o arquivo package.json e salvar para instalar as dependências;
+3 - Abrir o arquivo package.json e salvar (ou executar o comando 'npm install' na pasta raiz do projeto) para instalar as dependências;
 
 3 - Build > Build Solution;
 
