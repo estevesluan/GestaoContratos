@@ -1,0 +1,56 @@
+﻿
+<script>
+    atualizarMenu("menu-contratos");
+</script>
+
+<h2>Lista de contratos</h2>
+
+<hr>
+
+<div class="input-group mb-3">
+
+    <input type="text" class="form-control" placeholder="Nome do cliente" aria-label="Nome do cliente" aria-describedby="btn-pesquisar-contrato" id="input-pesquisa-contrato">
+    <div class="input-group-append">
+
+        <button class="btn btn-outline-secondary" type="button" id="btn-pesquisar-contrato">
+
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
+            Pesquisar
+
+        </button>
+
+    </div>
+
+</div>
+
+<div class="album py-5 bg-light">
+
+    <div class="container">
+
+        <div class="row" id="div-lista-contratos">
+
+        </div>
+
+    </div>
+
+</div>
+
+<ul class="list-unstyled" id="ul-contratos"></ul>
+
+
+<div class="btn-toolbar justify-content-between">
+
+    <ul class="btn-group mr-2" id="ul-paginacao-contratos"></ul>
+
+    <select class="input-group custom-select " id="select-contratos-por-pagina">
+
+        <option value="3">3 contratos por página</option>
+        <option value="6">6 contratos por página</option>
+        <option value="9">9 contratos por página</option>
+        <option value="12">12 contratos por página</option>
+
+    </select>
+
+</div>
+
+@Scripts.Render("~/bundles/contratoLista")

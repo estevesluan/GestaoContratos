@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewBag.Title = "Cadastro";
+}
+
+<script>
+    atualizarMenu("menu-cadastro");
+</script>
+
+<h2>Cadastro</h2>
+
+<form id="form-contrato">
+
+    <input type="hidden" id="input-id" value="@ViewBag.Id" />
+
+    <div class="form-row">
+
+        <div class="col-md-8 mb-3">
+
+            <label asp-validation-for="Arquivo" id="label-arquivo">Arquivo</label>
+            <div class="custom-file">
+
+                <input class="custom-file-input" type="file" id="input-arquivo">
+                <label class="custom-file-label" for="customFile" id="label-selecionar-arquivo" data-browse="Selecionar">Selecione o PDF do contrato</label>
+
+            </div>
+            <div class="valid-feedback"></div>
+
+        </div>
+
+    </div>
+
+    <div class="form-row">
+
+        <div class="col-md-8 mb-3">
+
+            <label class="label-campo-obrigatorio" asp-validation-for="Nome" id="label-nome-cliente">Nome do cliente</label>
+            <input class="form-control" placeholder="Nome do cliente" maxlength="60" id="input-nome-cliente" />
+            <div class="valid-feedback"></div>
+
+        </div>
+
+    </div>
+
+    <div class="form-row">
+
+        <div class="col-md-4 mb-3">
+
+            <label class="label-campo-obrigatorio" asp-validation-for="TipoContrato" id="label-tipo-contrato">Tipo do contrato</label>
+            <select class="form-control" id="select-tipo-contrato">
+                <option value="0" selected>Compra</option>
+                <option value="1">Venda</option>
+            </select>
+            <div class="valid-feedback"></div>
+
+        </div>
+
+        <div class="col-md-4 mb-3">
+
+            <label class="label-campo-obrigatorio" asp-validation-for="Quantidade" id="label-quantidade">Quantidade negociada</label>
+            <input class="form-control" placeholder="Quantidade" id="input-quantidade" />
+            <div class="valid-feedback"></div>
+
+        </div>
+
+        <div class="col-md-4 mb-3">
+
+            <label class="label-campo-obrigatorio" asp-validation-for="Valor" id="label-valor">Valor</label>
+            <input class="form-control" id="input-valor" />
+            <div class="valid-feedback"></div>
+
+        </div>
+
+    </div>
+
+
+    <div class="form-row">
+
+        <div class="col-md-6 mb-3">
+
+            <label class="label-campo-obrigatorio" asp-validation-for="Inicio" id="label-inicio">Mês/ano início</label>
+            <input class="form-control" placeholder="MM/AAAA" id="input-inicio" />
+            <div class="valid-feedback"></div>
+
+        </div>
+
+        <div class="col-md-6 mb-3">
+
+            <label class="label-campo-obrigatorio" asp-validation-for="duracao" id="label-fim">Mês/ano fim</label>
+            <input class="form-control" placeholder="MM/AAAA" id="input-fim" />
+            <div class="valid-feedback"></div>
+
+        </div>
+
+    </div>
+
+    <div class="form-group row">
+
+        <div class="col-sm-10">
+
+            <button class="btn btn-primary" id="btn-salvar">Salvar</button>
+            <button class="btn btn-dark" id="btn-novo">Novo</button>
+            <button class="btn btn-danger" id="btn-excluir" style="display: none;">Excluir</button>
+
+        </div>
+
+    </div>
+
+</form>
+
+@Scripts.Render("~/bundles/contratoCadastro")

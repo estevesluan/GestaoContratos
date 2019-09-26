@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Norus</title>
+    @Styles.Render("~/bundles/css")
+    <script>
+            var caminhoBase = "@Url.Content("~/")";
+    </script>
+</head>
+
+<body>
+
+    @Scripts.Render("~/bundles/js")
+
+    <div class="navbar navbar-dark shadow-sm">
+
+        <div class="container d-flex justify-content-between">
+
+            <a class="navbar-brand" href="/Home/Index">Gestão de contratos</a>
+
+            <nav class="nav nav-pills flex-column flex-sm-row">
+
+                <a class="flex-sm-fill text-sm-center nav-link active" href="/Home/Index" id="menu-inicio">Início<span class="sr-only">(current)</span></a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="/Contrato/Cadastro" id="menu-cadastro">Cadastro<span class="sr-only">(current)</span></a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="/Contrato/Lista" id="menu-contratos">Contratos<span class="sr-only">(current)</span></a>
+            </nav>
+
+        </div>
+
+    </div>
+
+    <div class="bg-light">
+
+        <div class="container body-content">
+
+            @RenderBody()
+
+        </div>
+
+    </div>
+
+    <footer class="text-muted">
+
+        <div class="container">
+
+            <p>© 2019 - Luan Lourenço Esteves</p>
+
+        </div>
+
+    </footer>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>
