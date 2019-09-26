@@ -1,16 +1,13 @@
 ﻿using GestaoContratos.Servicos;
 using GestaoContratos.ViewModel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace GestaoContratos.Controllers
 {
     public class ContratoController : Controller
     {
-        ContratoServico _servicoContrato;
+        readonly ContratoServico _servicoContrato;
 
         public ContratoController()
         {
@@ -20,6 +17,13 @@ namespace GestaoContratos.Controllers
         [HttpGet]
         public ActionResult Cadastro(int id = 0)
         {
+            if(id != 0)
+            {
+                ContratoViewModel contrato = _servicoContrato.Consultar(id);
+                ViewBag.Nome = contrato.NomeCliente;
+                ViewBag.Arquivo = contrato.ArquivoDownload.Length > 0;
+            }
+
             ViewBag.Id = id;
             return View();
         }
@@ -58,6 +62,21 @@ namespace GestaoContratos.Controllers
             }
 
             return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
+        }
+
+        [HttpGet]
+        public ActionResult DownloadContrato(int id)
+        {
+
+            try
+            {
+                return File(_servicoContrato.Consultar(id).ArquivoDownload, "application/octet-stream", "Contrato_"+id+".pdf");
+            }
+            catch (Exception e)
+            {
+                return Json(new { erro = e.Message });
+            }
+
         }
 
         [HttpGet]

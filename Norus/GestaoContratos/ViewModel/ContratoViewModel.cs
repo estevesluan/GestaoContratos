@@ -13,6 +13,7 @@ namespace GestaoContratos.ViewModel
         public DateTime Inicio { get; set; }
         public DateTime Fim { get; set; }
         public HttpPostedFileBase Arquivo { get; set; }
-        
+        public byte[] ArquivoDownload { get; set; }
+
     }
 }

@@ -7,7 +7,7 @@
     atualizarMenu("menu-cadastro");
 </script>
 
-<h2>Cadastro</h2>
+<h2 id="h2-titulo"> @(string.IsNullOrEmpty(ViewBag.Nome) ? "Contrato" : ViewBag.Nome)</h2>
 
 <form id="form-contrato">
 
@@ -15,16 +15,21 @@
 
     <div class="form-row">
 
-        <div class="col-md-8 mb-3">
+        <div class="col-md-8" style="margin-bottom:15px">
 
             <label asp-validation-for="Arquivo" id="label-arquivo">Arquivo</label>
             <div class="custom-file">
 
-                <input class="custom-file-input" type="file" id="input-arquivo">
+                <input class="custom-file-input" type="file" id="input-arquivo" value="">
                 <label class="custom-file-label" for="customFile" id="label-selecionar-arquivo" data-browse="Selecionar">Selecione o PDF do contrato</label>
 
             </div>
-            <div class="valid-feedback"></div>
+
+        </div>
+
+        <div class="col-md-4 align-items-center d-flex">
+
+            <a class="fa fa-download" id="icone-download" href="~/Contrato/DownloadContrato/@ViewBag.Id" style="display:@(ViewBag.Arquivo == true ? "block" : "none")"></a>
 
         </div>
 

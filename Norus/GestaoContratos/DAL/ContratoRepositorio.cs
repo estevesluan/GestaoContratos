@@ -8,7 +8,7 @@ namespace GestaoContratos.Models
 {
     public class ContratoRepositorio : IRepository<Contrato>
     {
-        private Context _context;
+        private readonly Context _context;
 
         public ContratoRepositorio(Context context)
         {
@@ -23,6 +23,8 @@ namespace GestaoContratos.Models
         public void Update(Contrato obj)
         {
             _context.Entry(obj).State = EntityState.Modified;
+            if (obj.Arquivo.Length == 0)
+                _context.Entry(obj).Property(x => x.Arquivo).IsModified = false;
             _context.SaveChanges();
         }
 
@@ -45,12 +47,9 @@ namespace GestaoContratos.Models
         private bool disposed = false;
         protected virtual void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!this.disposed && disposing)
             {
-                if (disposing)
-                {
-                    _context.Dispose();
-                }
+                _context.Dispose();
             }
             this.disposed = true;
         }

@@ -2,6 +2,8 @@
 
     var _novoCadastro = function () {
 
+        $("#h2-titulo").html("Cadastro");
+        $("#icone-download").hide();
         $("#form-contrato")[0].reset();
         $("#input-id").val("0");
         $("#input-arquivo").next(".custom-file-label").html("Selecione o PDF do contrato");
@@ -90,10 +92,11 @@
         }
 
         var dateDataInicio = createDate(data.get("inicio"));
+        var campo;
 
         if (dateDataInicio == null || dateDataInicio == "Invalid Date") {
 
-            var campo = $("#input-inicio");
+            campo = $("#input-inicio");
 
             campo.focus();
             campo.removeClass("is-valid");
@@ -111,7 +114,7 @@
 
         if (dateDataFim == null || dateDataFim == "Invalid Date") {
 
-            var campo = $("#input-fim");
+            campo = $("#input-fim");
 
             campo.focus();
             campo.removeClass("is-valid");
@@ -127,7 +130,7 @@
 
         if (dateDataInicio > dateDataFim) {
 
-            var campo = $("#input-inicio");
+            campo = $("#input-inicio");
 
             campo.focus();
             campo.removeClass("is-valid");
@@ -204,7 +207,8 @@
                         text: "Removido com sucesso!",
                         type: 'success'
                     });
-                    _novoCadastro();
+
+                    location.replace(caminhoBase + "Contrato/Lista");
 
                 }
 
@@ -241,7 +245,6 @@
 
                 } else {
 
-                    $("#input-arquivo").next(".custom-file-label").html("Selecione o PDF do contrato");
                     $("#input-nome-cliente").val(data.NomeCliente);
                     $("#select-tipo-contrato").val(data.TipoContrato);
                     $("#input-quantidade").val(data.Quantidade);
@@ -277,6 +280,9 @@
 
     var inicializar = function () {
 
+        //Verifica edição de usuário
+        var id = $("#input-id").val();
+
         _inicializarMascara();
 
         //Inicializa os eventos
@@ -285,11 +291,10 @@
         $("body").on("click", "#btn-salvar", _salvar);
         $("body").on("click", "#btn-excluir", _excluir);
 
-        //Verifica edição de usuário
-        var id = $("#input-id").val();
-
         if (id != null && id > 0) {
             _carregarContrato(id);
+        } else {
+            _novoCadastro();
         }
 
     }
@@ -307,11 +312,5 @@ $(function () {
 
     var modulo = new ContratoModulo();
     modulo.inicializar();
-
-    $("#input-nome-cliente").val("luan");
-    $("#input-quantidade").val("10").trigger('input');
-    $("#input-valor").val("10000").trigger('input');
-    $("#input-inicio").val("01/2019").trigger('input');
-    $("#input-fim").val("02/2019").trigger('input');
 
 });

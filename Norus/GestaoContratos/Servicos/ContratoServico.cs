@@ -3,6 +3,7 @@ using GestaoContratos.Models;
 using GestaoContratos.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 
@@ -21,7 +22,9 @@ namespace GestaoContratos.Servicos
 
                 cfg.CreateMap<Contrato, ContratoViewModel>()
                     .ForMember(x => x.Fim, opt => opt.MapFrom(y => y.Inicio.AddMonths(y.DuracaoEmMeses - 1)))
+                    .ForMember(x => x.ArquivoDownload, opt => opt.MapFrom(y => y.Arquivo))
                     .ForMember(x => x.Arquivo, opt => opt.Ignore());
+                    
 
                 cfg.CreateMap<ContratoViewModel, Contrato>()
                     .ForMember(x => x.DuracaoEmMeses, opt => opt.MapFrom(y => DiferencaEntreDatasEmMeses(y.Inicio, y.Fim)))
@@ -29,6 +32,13 @@ namespace GestaoContratos.Servicos
 
             });
             _mapper = config.CreateMapper();
+        }
+
+        public void ConverterByteToPDF(byte [] buffer)
+        {
+            FileStream fs = new FileStream("C:\norusPdfBase.pdf", FileMode.Create);
+            fs.Write(buffer, 0, buffer.Length);
+            fs.Close();
         }
 
         public byte[] ConverterDocumento(HttpPostedFileBase arquivo)
@@ -65,11 +75,12 @@ namespace GestaoContratos.Servicos
             }
 
             Contrato c = _mapper.Map<ContratoViewModel, Contrato>(contrato);
-
+            
             if (c.Id == 0)
                 _repositoryContrato.Insert(c);
             else
                 _repositoryContrato.Update(c);
+
         }
 
         public void Deletar(int id)
@@ -84,7 +95,9 @@ namespace GestaoContratos.Servicos
 
         public ContratoViewModel Consultar(int id)
         {
-            return _mapper.Map<Contrato, ContratoViewModel>(_repositoryContrato.Select(id));
+            Contrato contrato = _repositoryContrato.Select(id);
+
+            return _mapper.Map<Contrato, ContratoViewModel>(contrato);
         }
 
         public ContratoPaginacaoViewModel Consultar(string pesquisa, int numeroPagina, int numeroItensPorPagina)
@@ -109,7 +122,7 @@ namespace GestaoContratos.Servicos
 
                 return contratoPaginacao;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }
@@ -118,7 +131,7 @@ namespace GestaoContratos.Servicos
         public bool ValidarContrato(ContratoViewModel contrato)
         {
 
-            List<Contrato> contratos = _repositoryContrato.SelectAll().ToList();
+            List<Contrato> contratos = _repositoryContrato.SelectAll().Where(x => x.Id != contrato.Id).ToList();
 
             DateTime inicio = contrato.Inicio;
             bool contratoPermitido = true;
